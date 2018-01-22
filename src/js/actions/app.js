@@ -1,6 +1,10 @@
+import 'unfetch/polyfill';
+import urls from '../lib/urls';
+
 export const NAVIGATE = 'NAVIGATE';
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
+export const DATA_LOADING = 'DATA_LOADING';
+export const DATA_LOADED = 'DATA_LOADED';
+export const DATA_ERROR = 'DATA_ERROR';
 
 export const navigate = (path) => {
   return {
@@ -9,14 +13,39 @@ export const navigate = (path) => {
   };
 };
 
-export const increment = () => {
+export const dataLoading = () => {
   return {
-    type: INCREMENT
+    type: DATA_LOADING
   };
 };
 
-export const decrement = () => {
+export const dataLoaded = (url, data, page, expiry) => {
   return {
-    type: DECREMENT
+    type: DATA_LOADED,
+    url,
+    data,
+    page,
+    expiry
   };
 };
+
+export const dataError = (errMsg) => {
+  return {
+    type: DATA_ERROR,
+    errMsg
+  };
+};
+
+
+export const loadApi = (url, page) => {
+  return dispatch => {
+    fetch(urls[url](page))
+      .then(res => res.json())
+      .then(res => {
+        dispatch(dataLoaded(url, res, page, Date.now() + (1e3 * 60 * 5)))
+      })
+      .catch(e => {
+          dispatch(dataError(e.message))
+      });
+  };
+}

@@ -12,7 +12,7 @@ export const store = createStore(
 
 // Initially loaded reducers.
 import app from './reducers/app.js';
-import counter from './reducers/counter.js';
+import data from './reducers/data.js';
 store.addReducers({
-  app, counter
+  app, data
 });
