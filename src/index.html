@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>Redux helpers demo</title>
+    <style>
+      body {
+        margin: 20px;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        line-height: 1.5;
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Redux helpers: demos</h1>
+    <my-app></my-app>
+
+    <script src="<%= htmlWebpackPlugin.files.chunks['vendor'].entry %>"></script>
+    <script src="<%= htmlWebpackPlugin.files.chunks['application'].entry %>"></script>
+  </body>
+</html>

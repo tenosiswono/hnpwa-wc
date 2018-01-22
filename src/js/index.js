@@ -1,0 +1,9 @@
+require("./store");
+require("./actions/app");
+require("./components/counter-element");
+require("./components/my-app");
+require("./lib/connect-mixin");
+require("./lib/lazyReducerEnhancer");
+require("./lib/router");
+require("./reducers/app");
+require("./reducers/counter");

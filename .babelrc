@@ -1,0 +1,14 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "uglify": true
+      },
+      "useBuiltIns": true
+    }],
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-decorators-legacy"
+  ]
+}
