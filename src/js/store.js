@@ -1,12 +1,12 @@
-import { createStore, origCompose, applyMiddleware } from '@0xcda7a/redux-es6';
+import { createStore, compose, applyMiddleware } from '@0xcda7a/redux-es6';
 import thunk from 'redux-thunk';
 
 import { lazyReducerEnhancer } from './lib/lazyReducerEnhancer.js'
-const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || origCompose;
+const composeMid = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
   (state, action) => state,
-  compose(lazyReducerEnhancer),
+  composeMid(lazyReducerEnhancer),
   applyMiddleware(thunk)
 );
 
