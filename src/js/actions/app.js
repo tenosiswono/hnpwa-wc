@@ -5,6 +5,7 @@ export const NAVIGATE = 'NAVIGATE';
 export const DATA_LOADING = 'DATA_LOADING';
 export const DATA_LOADED = 'DATA_LOADED';
 export const DATA_ERROR = 'DATA_ERROR';
+export const SET_DATA = 'SET_DATA';
 
 export const navigate = (path) => {
   return {
@@ -36,9 +37,17 @@ export const dataError = (errMsg) => {
   };
 };
 
+export const setData = (data) => {
+  return {
+    type: SET_DATA,
+    data
+  };
+};
+
 
 export const loadApi = (url, page) => {
   return dispatch => {
+    dispatch(dataLoading())
     fetch(urls[url](page))
       .then(res => res.json())
       .then(res => {

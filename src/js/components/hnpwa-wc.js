@@ -2,7 +2,7 @@ import './generic-view'
 import { connect } from '../lib/connect-mixin.js';
 import { installRouter } from '../lib/router.js';
 import { store } from '../store.js';
-import { navigate, loadApi } from '../actions/app.js';
+import { navigate, loadApi, setData } from '../actions/app.js';
 
 let template = document.createElement('template');
 template.innerHTML = `
@@ -32,12 +32,18 @@ class HnpwaWc extends connect(store)(HTMLElement) {
     if (!this._ready) {
       return;
     }
-    if (state.app.url !== this._prevState.app.url || ( state.app.url === this._prevState.app.url && state.app.page !== this._prevState.app.page)) {
-      if (state.data.datas.filter((i) => i.url === state.app.url && i.page === state.app.page && i.expiry > Date.now()).length === 0) {
+    if (state.data.currentData !== this._prevState.data.currentData) {
+      this._genericView.datas = state.data.currentData
+    }
+    if (state.app.url !== this._prevState.app.url || ( state.app.url === this._prevState.app.url && state.app.page !== this._prevState.app.page)) {  
+      this._prevState = state
+      const data = state.data.datas.filter((i) => i.url === state.app.url && i.page === state.app.page && i.expiry > Date.now());
+      if (data.length === 0) {
         store.dispatch(loadApi(state.app.url, state.app.page))
+      } else {
+        store.dispatch(setData(data[0]))
       }
     }
-    this._prevState = state
   }
 }
 
