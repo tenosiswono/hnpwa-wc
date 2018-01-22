@@ -15,7 +15,7 @@ const GLOBALS = {
 module.exports = merge(config, {
   devtool: "nosources-source-map",
   entry: {
-    application: ["babel-polyfill", "src/js/index"],
+    application: ["src/js/index"],
     vendor: [
       "@webcomponents/webcomponentsjs/custom-elements-es5-adapter",
       "@webcomponents/webcomponentsjs/webcomponents-loader",

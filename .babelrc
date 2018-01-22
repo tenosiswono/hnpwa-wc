@@ -1,14 +1,18 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "uglify": true
-      },
-      "useBuiltIns": true
-    }],
-    "stage-0"
+    "env"
   ],
   "plugins": [
-    "transform-decorators-legacy"
-  ]
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "transform-runtime"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "es2015",
+        "./babel"
+       ]
+    }
+  }
 }

@@ -14,7 +14,6 @@ module.exports = merge(config, {
   entry: {
     application: [
       "webpack-hot-middleware/client",
-      "babel-polyfill",
       "src/js/index"
     ],
     vendor: [

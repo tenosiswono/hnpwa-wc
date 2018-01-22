@@ -40,7 +40,12 @@ module.exports = {
       {
         test: /\.js?$/,
         include: path.resolve(__dirname, "../src"),
-        use: "babel-loader"
+        loader: "babel-loader",
+        options: {
+          babelrc: false,
+          cacheDirectory: true,
+          presets: [require.resolve("./babel/preset")]
+        }
       },
       //HTML
       {
