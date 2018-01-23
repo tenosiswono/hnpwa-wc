@@ -1,3 +1,5 @@
+import renderList from '../lib/renderList'
+import './generic-item'
 let template = document.createElement('template');
 template.innerHTML = `
 <div>
@@ -15,26 +17,31 @@ class GenericView extends HTMLElement {
     this._content = shadowRoot.getElementById('content');
   }
 
-  get datas() {
-    let s = this.getAttribute('datas');
-    return s ? JSON.parse(s) : [];
-  }
-
-  set datas(val) {
-    this.setAttribute('datas', JSON.stringify(val));
-    this.updateDatas(val);
+  set properties(props) {
+    this.datas = props.datas
+    this.updateDatas(this.datas);
   }
 
   updateDatas = (val) => {
     if (val) {
-      this._content.innerHTML = val.data.reduce((p, i, index) => (index > 1 ? p : this.generateContent(p.title, p.user)) + this.generateContent(i.title, i.user))
+      this._content.innerHTML = renderList(val.data, this.generateContent);
     }
   }
 
-  generateContent = (title, user) => `
-    <h2>${title}</h2>
-    <p>${user}</p>
-  `
+  generateContent = (props) => {
+    return `
+      <generic-item
+        data-url="${props.url}"
+        data-title="${props.title}"
+        data-domain="${props.domain}"
+        data-points="${props.points}"
+        data-user="${props.user}"
+        data-elapsed="${props.time_ago}"
+        data-comments="${props.comments_count}"
+        data-type="${this.datas.url}"
+      ></generic-item>
+    `
+  }
 }
 
 window.customElements.define('generic-view', GenericView);

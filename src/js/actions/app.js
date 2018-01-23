@@ -54,7 +54,8 @@ export const loadApi = (url, page) => {
         dispatch(dataLoaded(url, res, page, Date.now() + (1e3 * 60 * 5)))
       })
       .catch(e => {
-          dispatch(dataError(e.message))
+        console.log(e)
+        dispatch(dataError(e.message))
       });
   };
 }

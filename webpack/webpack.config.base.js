@@ -6,12 +6,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   output: {
-    filename: "js/[name].[chunkhash].js",
+    filename: "build.js",
     path: path.resolve(__dirname, "../build"),
     publicPath: "/"
   },
   resolve: {
-    modules: ["node_modules"],
+    modules: ["node_modules", "src"],
     alias: {
       src: path.join(__dirname, "../src")
     },
@@ -22,7 +22,7 @@ module.exports = {
     // Shared code
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
-      filename: "js/[name].[hash].js",
+      filename: "vendor.js",
       minChunks: Infinity
     }),
     new HtmlWebpackPlugin({
