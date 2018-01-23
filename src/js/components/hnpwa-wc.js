@@ -169,11 +169,9 @@ class HnpwaWc extends connect(store)(HTMLElement) {
         this._btnPrev.classList.add("disabled");
       }
       if (state.data.currentData.data && state.data.currentData.data.length === 30) {
-        console.log(state.data.currentData.data.length, state.data.currentData.data)
         this._btnNext.classList.remove("disabled");
         this._btnNext.href = `${state.app.url}?page=${state.app.page + 1}`;
       } else {
-        console.log('dis', state.data.currentData.data)
         this._btnNext.classList.add("disabled");
       }
     }
