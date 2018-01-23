@@ -161,6 +161,23 @@ class HnpwaWc extends connect(store)(HTMLElement) {
     }
     this._nav.innerHTML = `<li class="logo"></li> ${renderList(navItems.map(i => Object.assign(i, { active: i.url === state.app.url })), this.generateNavItem)}`;
     
+    if (state.data.currentData.url !== '/item') {
+      if (state.app.page > 1) {
+        this._btnPrev.classList.remove("disabled");
+        this._btnPrev.href = `${state.app.url}?page=${state.app.page - 1}`;
+      } else {
+        this._btnPrev.classList.add("disabled");
+      }
+      if (state.data.currentData.data && state.data.currentData.data.length === 30) {
+        console.log(state.data.currentData.data.length, state.data.currentData.data)
+        this._btnNext.classList.remove("disabled");
+        this._btnNext.href = `${state.app.url}?page=${state.app.page + 1}`;
+      } else {
+        console.log('dis', state.data.currentData.data)
+        this._btnNext.classList.add("disabled");
+      }
+    }
+
     if (state.app.url !== this._state.app.url || ( state.app.url === this._state.app.url && state.app.page !== this._state.app.page)) {  
       this._state = state
       if (state.app.url === '/item') {
@@ -188,18 +205,6 @@ class HnpwaWc extends connect(store)(HTMLElement) {
           store.dispatch(setData(data[0]))
         }
       }
-    }
-    if (state.app.page > 1) {
-      this._btnPrev.classList.remove("disabled");
-      this._btnPrev.href = `${state.app.url}?page=${state.app.page - 1}`;
-    } else {
-      this._btnPrev.classList.add("disabled");
-    }
-    if (state.data.currentData.data && state.data.currentData.data.length === 30) {
-      this._btnNext.classList.remove("disabled");
-      this._btnNext.href = `${state.app.url}?page=${state.app.page + 1}`;
-    } else {
-      this._btnNext.classList.add("disabled");
     }
     this._pageNumber.innerText = state.app.page;
   }

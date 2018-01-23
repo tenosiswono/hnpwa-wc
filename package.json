@@ -7,7 +7,8 @@
     "start": "webpack-dashboard -- node ./bin/server.js",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --progress && npm run gen-sw",
     "analyze": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --profile --json > profile.json && webpack-bundle-analyzer profile.json",
-    "gen-sw": "node generate-sw.js"
+    "gen-sw": "node generate-sw.js",
+    "lint": "standard src --ignore-path .gitignore --fix"
   },
   "author": "teno siswono",
   "license": "ISC",
@@ -30,6 +31,7 @@
     "cross-env": "^5.1.3",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^2.30.1",
+    "standard": "^10.0.3",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
