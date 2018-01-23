@@ -42,14 +42,14 @@ class GenericItem extends HTMLElement {
     let shadowRoot = this.attachShadow({mode: 'open'});
     this.shadowRoot.appendChild(document.importNode(template.content, true));
 
-    this.urlElem = this.shadowRoot.getElementById('url');
-    this.detailsElem = this.shadowRoot.getElementById('details');
-    this.titleElem = this.shadowRoot.getElementById('title');
-    this.domainElem = this.shadowRoot.getElementById('domain');
-    this.pointsElem = this.shadowRoot.getElementById('points');
-    this.userElem = this.shadowRoot.getElementById('user');
-    this.elapsedElem = this.shadowRoot.getElementById('elapsed');
-    this.commentsElem = this.shadowRoot.getElementById('comments');
+    this._url = this.shadowRoot.getElementById('url');
+    this._details = this.shadowRoot.getElementById('details');
+    this._title = this.shadowRoot.getElementById('title');
+    this._domain = this.shadowRoot.getElementById('domain');
+    this._points = this.shadowRoot.getElementById('points');
+    this._user = this.shadowRoot.getElementById('user');
+    this._elapsed = this.shadowRoot.getElementById('elapsed');
+    this._comments = this.shadowRoot.getElementById('comments');
   }
 
   connectedCallback() {
@@ -57,16 +57,16 @@ class GenericItem extends HTMLElement {
   }
 
   render (props) {
-    this.urlElem.href = props.url;
-    this.titleElem.innerText = props.title;
-    this.domainElem.innerText = props.domain;
-    this.pointsElem.innerText = `${props.points} points`;
-    this.userElem.innerText = `by ${props.user}`;
-    this.elapsedElem.innerText = props.elapsed;
-    this.commentsElem.innerText = props.comments > 0 ? `${props.comments} comments` : 'discus' ;
+    this._url.href = props.url;
+    this._title.innerText = props.title;
+    this._domain.innerText = props.domain;
+    this._points.innerText = `${props.points} points`;
+    this._user.innerText = `by ${props.user}`;
+    this._elapsed.innerText = props.elapsed;
+    this._comments.innerText = props.comments > 0 ? `${props.comments} comments` : 'discus' ;
     if (props.type === '/jobs') {
-      this.detailsElem.removeChild(this.pointsElem)
-      this.detailsElem.removeChild(this.userElem)
+      this._details.removeChild(this._points)
+      this._details.removeChild(this._user)
     }
   }
 

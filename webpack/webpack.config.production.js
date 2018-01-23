@@ -31,8 +31,8 @@ module.exports = merge(config, {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, "../src/assets/images"),
-        to: "images"
+        from: path.join(__dirname, "../src/assets"),
+        to: "assets"
       }
     ]),
     // Avoid publishing files when compilation fails

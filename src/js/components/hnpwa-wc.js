@@ -8,6 +8,9 @@ import renderList from '../lib/renderList'
 let template = document.createElement('template');
 template.innerHTML = `
 <style>
+a {
+  text-decoration: none;
+}
 nav {
   position: fixed;
   width: 100%;
@@ -18,7 +21,7 @@ nav {
 }
 section {
   max-width: 1024px;
-  margin: 72px auto 50px auto;
+  margin: 16px auto 32px auto;
   padding: 0 32px;
 }
 ol {
@@ -34,7 +37,6 @@ ol {
 }
 li a {
   color: #fff;
-  text-decoration: none;
   margin: 0 .4rem;
   position: relative;
   display: flex;
@@ -56,6 +58,20 @@ nav a.active {
   background-repeat: no-repeat;
   background-position: center;
 }
+#pagination {
+  margin: 56px 0 0 0;
+  text-align: center;
+}
+#pagination a {
+  color: #000;
+}
+#pagination span {
+  padding: 0 16px;
+}
+#pagination a.disabled {
+  pointer-events: none;
+  color: #666;
+}
 @media (max-width: 500px) {
   ol {
     padding: 0;
@@ -70,6 +86,11 @@ nav a.active {
     <ol id="nav">
     </ol>
   </nav>
+  <div id="pagination">
+    <a id="btn-prev" class="page-nav">< Prev</a>
+    <span id="page-number"></span>
+    <a id="btn-next" class="page-nav">Next ></a>
+  </div>
   <section>
     <generic-view id="generic-view" />
   </section>
@@ -104,28 +125,29 @@ class HnpwaWc extends connect(store)(HTMLElement) {
     super();
     let shadowRoot = this.attachShadow({mode: 'open'});
     this.shadowRoot.appendChild(document.importNode(template.content, true));
+    
+    this._state = store.getState();
+    this._ready = true;
 
     this._genericView = shadowRoot.getElementById('generic-view');
     this._nav = shadowRoot.getElementById('nav');
-
-    this._ready = true;
-    this._prevState = store.getState();
+    this._btnPrev = shadowRoot.getElementById('btn-prev');
+    this._btnNext = shadowRoot.getElementById('btn-next');
+    this._pageNumber = shadowRoot.getElementById('page-number');
 
     installRouter(() => {
       store.dispatch(navigate(window.location));
     })
   }
 
-  update(state, test) {
+  update(state) {
     if (!this._ready) {
       return;
     }
     this._nav.innerHTML = `<li class="logo"></li> ${renderList(navItems.map(i => Object.assign(i, { active: i.url === state.app.url })), this.generateNavItem)}`;
-    if (state.data.currentData !== this._prevState.data.currentData) {
-      this._genericView.properties = { datas: state.data.currentData }
-    }
-    if (state.app.url !== this._prevState.app.url || ( state.app.url === this._prevState.app.url && state.app.page !== this._prevState.app.page)) {  
-      this._prevState = state
+    
+    if (state.app.url !== this._state.app.url || ( state.app.url === this._state.app.url && state.app.page !== this._state.app.page)) {  
+      this._state = state
       const data = state.data.datas.filter((i) => i.url === state.app.url && i.page === state.app.page && i.expiry > Date.now());
       if (data.length === 0) {
         store.dispatch(loadApi(state.app.url, state.app.page))
@@ -133,6 +155,19 @@ class HnpwaWc extends connect(store)(HTMLElement) {
         store.dispatch(setData(data[0]))
       }
     }
+    if (state.app.page > 1) {
+      this._btnPrev.classList.remove("disabled");
+      this._btnPrev.href = `${state.app.url}?page=${state.app.page - 1}`;
+    } else {
+      this._btnPrev.classList.add("disabled");
+    }
+    if (state.data.currentData.data && state.data.currentData.data.length === 30) {
+      this._btnNext.classList.remove("disabled");
+      this._btnNext.href = `${state.app.url}?page=${state.app.page + 1}`;
+    } else {
+      this._btnNext.classList.add("disabled");
+    }
+    this._pageNumber.innerText = state.app.page;
   }
 
   generateNavItem = (props) => {

@@ -44,7 +44,9 @@ const app = (state = { datas: [], errMsg: '', loading: false, currentData: {} },
       case SET_DATA:
         return {
           ...state,
-          currentData: action.data
+          currentData: action.data,
+          loading: false,
+          errMsg: ''
         }
     default:
       return state;
