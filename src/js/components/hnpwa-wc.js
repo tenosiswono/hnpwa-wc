@@ -1,4 +1,5 @@
 import './generic-view'
+import './comment-view'
 import { connect } from '../lib/connect-mixin.js';
 import { installRouter } from '../lib/router.js';
 import { store } from '../store.js';
@@ -21,8 +22,17 @@ nav {
 }
 section {
   max-width: 1024px;
-  margin: 16px auto 32px auto;
-  padding: 0 32px;
+  margin: 49px auto 0 auto;
+  padding: 32px;
+  background: #eee;
+}
+#comment-view {
+  min-height: calc(100vh - 144px);
+  margin: 0;
+}
+#generic-view{
+  min-height: calc(100vh - 144px);
+  margin: 16px 0 0 0;
 }
 ol {
   display: flex;
@@ -59,8 +69,13 @@ nav a.active {
   background-position: center;
 }
 #pagination {
-  margin: 56px 0 0 0;
   text-align: center;
+  position: fixed;
+  width: 100%;
+  top: 45px;
+  z-index: 100;
+  background: #fff;
+  padding: 8px;
 }
 #pagination a {
   color: #000;
@@ -91,8 +106,7 @@ nav a.active {
     <span id="page-number"></span>
     <a id="btn-next" class="page-nav">Next ></a>
   </div>
-  <section>
-    <generic-view id="generic-view" />
+  <section id="section">
   </section>
 </div>
 `
@@ -129,11 +143,12 @@ class HnpwaWc extends connect(store)(HTMLElement) {
     this._state = store.getState();
     this._ready = true;
 
-    this._genericView = shadowRoot.getElementById('generic-view');
     this._nav = shadowRoot.getElementById('nav');
     this._btnPrev = shadowRoot.getElementById('btn-prev');
     this._btnNext = shadowRoot.getElementById('btn-next');
     this._pageNumber = shadowRoot.getElementById('page-number');
+    this._pagination = shadowRoot.getElementById('pagination');
+    this._section = shadowRoot.getElementById('section');
 
     installRouter(() => {
       store.dispatch(navigate(window.location));
@@ -148,11 +163,30 @@ class HnpwaWc extends connect(store)(HTMLElement) {
     
     if (state.app.url !== this._state.app.url || ( state.app.url === this._state.app.url && state.app.page !== this._state.app.page)) {  
       this._state = state
-      const data = state.data.datas.filter((i) => i.url === state.app.url && i.page === state.app.page && i.expiry > Date.now());
-      if (data.length === 0) {
-        store.dispatch(loadApi(state.app.url, state.app.page))
+      if (state.app.url === '/item') {
+        const data = state.data.datas.filter((i) => i.url === state.app.url && i.id === state.app.id && i.expiry > Date.now());
+        if (this._section.getElementsByTagName('comment-view'.length === 0)) {
+          this._section.innerHTML = '';
+          this._section.appendChild(document.createElement("comment-view"))
+        }
+        this._pagination.style.display = "none";
+        if (data.length === 0) {
+          store.dispatch(loadApi(state.app.url, state.app.page, state.app.id))
+        } else {
+          store.dispatch(setData(data[0]))
+        }
       } else {
-        store.dispatch(setData(data[0]))
+        const data = state.data.datas.filter((i) => i.url === state.app.url && i.page === state.app.page && i.expiry > Date.now());
+        if (this._section.getElementsByTagName('generic-view'.length === 0)) {
+          this._section.innerHTML = '';
+          this._section.appendChild(document.createElement("generic-view"))
+        }
+        this._pagination.style.display = "block";
+        if (data.length === 0) {
+          store.dispatch(loadApi(state.app.url, state.app.page))
+        } else {
+          store.dispatch(setData(data[0]))
+        }
       }
     }
     if (state.app.page > 1) {

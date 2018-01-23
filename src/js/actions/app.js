@@ -45,16 +45,15 @@ export const setData = (data) => {
 };
 
 
-export const loadApi = (url, page) => {
+export const loadApi = (url, page, id) => {
   return dispatch => {
     dispatch(dataLoading())
-    fetch(urls[url](page))
+    fetch(urls[url](page, id))
       .then(res => res.json())
       .then(res => {
-        dispatch(dataLoaded(url, res, page, Date.now() + (1e3 * 60 * 5)))
+        dispatch(dataLoaded(url, res, page, Date.now() + (1e3 * 60 * 5), id))
       })
       .catch(e => {
-        console.log(e)
         dispatch(dataError(e.message))
       });
   };

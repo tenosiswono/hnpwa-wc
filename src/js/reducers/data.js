@@ -3,14 +3,15 @@ import { DATA_LOADING, DATA_LOADED, DATA_ERROR, SET_DATA } from '../actions/app.
 export const insertData = (state, action) => {
   switch(action.type) {
     case DATA_LOADED:
-      const { data, page, expiry, url } = action;
+      const { data, page, expiry, url, id } = action;
       return [
         ...state,
         {
           url,
           data,
           page,
-          expiry
+          expiry,
+          id
         }
       ];
     default:
@@ -27,11 +28,11 @@ const app = (state = { datas: [], errMsg: '', loading: false, currentData: {} },
         errMsg: ''
       }
       case DATA_LOADED:
-        const { data, page, expiry, url } = action;
+        const { data, page, expiry, url, id } = action;
         return {
           ...state,
           datas: insertData(state.datas, action),
-          currentData: { data, page, expiry, url },
+          currentData: { data, page, expiry, url, id },
           loading: false,
           errMsg: ''
         }

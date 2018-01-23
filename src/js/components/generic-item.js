@@ -60,14 +60,11 @@ class GenericItem extends HTMLElement {
     this._url.href = props.url;
     this._title.innerText = props.title;
     this._domain.innerText = props.domain;
-    this._points.innerText = `${props.points} points`;
-    this._user.innerText = `by ${props.user}`;
     this._elapsed.innerText = props.elapsed;
     this._comments.innerText = props.comments > 0 ? `${props.comments} comments` : 'discus' ;
-    if (props.type === '/jobs') {
-      this._details.removeChild(this._points)
-      this._details.removeChild(this._user)
-    }
+    this._comments.href = `item?id=${props.id}`;
+    this._points.innerText = props.points === 'null' ? '' : `${props.points} ★`;
+    this._user.innerText = props.user === 'null' ? '' : `by ${props.user}`;
   }
 
 }

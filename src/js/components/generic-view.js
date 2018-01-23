@@ -11,7 +11,7 @@ template.innerHTML = `
     position: fixed;
     top: 48px;
     left: 0;
-    background: #eeeeeea3;
+    background: #eee;
     text-align: center;
     color: #999;
     padding-top: 50vh;
@@ -22,7 +22,7 @@ template.innerHTML = `
   }
   .error {
     display: block!important;
-    background: #f58080a3!important;
+    background: #f58080!important;
     color: #000!important;
   }
 </style>
@@ -89,7 +89,8 @@ class GenericView extends connect(store)(HTMLElement) {
         data-user="${props.user}"
         data-elapsed="${props.time_ago}"
         data-comments="${props.comments_count}"
-        data-type="${this._state.data.datas.url}"
+        data-type="${this._state.data.currentData.url}"
+        data-id="${props.id}"
       ></generic-item>
     `
   }
