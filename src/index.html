@@ -1,12 +1,14 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="preload" href="<%= htmlWebpackPlugin.files.chunks['vendor'].entry %>" as="script">
+    <link rel="preload" href="<%= htmlWebpackPlugin.files.chunks['application'].entry %>" as="script">
     <meta charset="UTF-8">
     <base href="/">
     <link rel="dns-prefetch" href="https://hnpwa.com/">
     <link rel="canonical" href="https://hnpwa-wc.firebaseapp.com/">
-    <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon">
-    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/favicon-32x32.png" type="image/x-icon">
+    <link rel="icon" href="/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="manifest" href="assets/manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -35,6 +37,11 @@
   </head>
   <body>
     <hnpwa-wc></hnpwa-wc>
+    <noscript>
+      <h4 style="font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica;">
+        Sorry, JavaScript needs to be enabled in order to run this application.
+      </h4>
+    </noscript>
     <script src="<%= htmlWebpackPlugin.files.chunks['vendor'].entry %>"></script>
     <script src="<%= htmlWebpackPlugin.files.chunks['application'].entry %>"></script>
   </body>

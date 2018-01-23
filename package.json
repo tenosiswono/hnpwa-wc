@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dashboard -- node ./bin/server.js",
-    "build": "npm run gen-sw && cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --progress",
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --progress && npm run gen-sw",
     "analyze": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --profile --json > profile.json && webpack-bundle-analyzer profile.json",
     "gen-sw": "node generate-sw.js"
   },

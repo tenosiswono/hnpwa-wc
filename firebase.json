@@ -34,7 +34,7 @@
         "headers": [
           {
             "key": "Link",
-            "value": "<https://hnpwa.com>;rel=dns-prefetch,</bundle.js>;rel=preload;as=script,</vendor.js>;rel=preload;as=script,<https://hnpwa.com/api/v0/news.json?page=1>;rel=preload;as=fetch;crossorigin"
+            "value": "<https://hnpwa.com>;rel=dns-prefetch,</build.js>;rel=preload;as=script,</vendor.js>;rel=preload;as=script,<https://hnpwa.com/api/v0/news.json?page=1>;rel=preload;as=fetch;crossorigin"
           }
         ]
       }
