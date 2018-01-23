@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dashboard -- node ./bin/server.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --progress",
-    "analyze": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --profile --json > profile.json && webpack-bundle-analyzer profile.json"
+    "build": "npm run gen-sw && cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --progress",
+    "analyze": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.production.js --profile --json > profile.json && webpack-bundle-analyzer profile.json",
+    "gen-sw": "node generate-sw.js"
   },
   "author": "teno siswono",
   "license": "ISC",
@@ -36,6 +37,7 @@
     "webpack-dashboard": "^1.0.2",
     "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0",
-    "webpack-merge": "^4.1.1"
+    "webpack-merge": "^4.1.1",
+    "workbox-build": "^2.1.2"
   }
 }

@@ -19,6 +19,19 @@
         line-height: 1.5;
       }
     </style>
+    <script>
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+              navigator.serviceWorker.register('/sw.js', {scope: '/'})
+                  .then(function () {
+                      console.log('Service Worker Registered');
+                  });
+              navigator.serviceWorker.ready.then(function () {
+                  console.log('Service Worker Ready');
+              });
+          });
+      }
+    </script>
   </head>
   <body>
     <hnpwa-wc></hnpwa-wc>
