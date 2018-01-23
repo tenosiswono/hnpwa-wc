@@ -26,11 +26,15 @@ const app = (state = {}, action) => {
       const location = action.path;
       const url = window.decodeURIComponent(location.pathname);
       const page = getPage()
-      window.history.replaceState({}, '', `${url}?page=${page}`);
+      if (url !== '/item') {
+        window.history.replaceState({}, '', `${url}?page=${page}`);
+      }
+      window.scrollTo(0, 0)
       return {
         ...state,
         url,
-        page
+        page,
+        id: getParams().id
       };
     default:
       return state;

@@ -18,7 +18,6 @@ module.exports = merge(config, {
     ],
     vendor: [
       "@webcomponents/webcomponentsjs/custom-elements-es5-adapter",
-      "@webcomponents/webcomponentsjs/webcomponents-loader",
       "@0xcda7a/redux-es6",
       "redux-thunk",
       "unfetch"

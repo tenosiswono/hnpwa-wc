@@ -7,5 +7,5 @@ export default {
   '/show': (page) => `${hnPWA}/show${extension}?page=${page}`,
   '/ask': (page) => `${hnPWA}/ask${extension}?page=${page}`,
   '/jobs': (page) => `${hnPWA}/jobs${extension}?page=${page}`,
-  '/item': (id) => `${hnPWA}/item/${id}${extension}`
+  '/item': (page, id) => `${hnPWA}/item/${id}${extension}`
 };
