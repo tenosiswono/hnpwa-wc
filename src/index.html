@@ -13,7 +13,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="theme-color" content="#5762D5">
-    <title>Webcomponents Hacker News PWA</title>
+    <meta name="description" content="Webcomponents Hacker News PWA">
+    <title>WC Hacker News PWA</title>
     <style>
       body {
         margin: 0;
@@ -60,5 +61,6 @@
     </hnpwa-wc>
     <script src="<%= htmlWebpackPlugin.files.chunks['vendor'].entry %>"></script>
     <script src="<%= htmlWebpackPlugin.files.chunks['application'].entry %>"></script>
+    <script src="/webcomponents-loader.js"></script>
   </body>
 </html>

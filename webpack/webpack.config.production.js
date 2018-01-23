@@ -19,7 +19,6 @@ module.exports = merge(config, {
     application: ["src/js/index"],
     vendor: [
       "@webcomponents/webcomponentsjs/custom-elements-es5-adapter",
-      "@webcomponents/webcomponentsjs/webcomponents-loader",
       "@0xcda7a/redux-es6",
       "redux-thunk",
       "unfetch"
@@ -33,6 +32,30 @@ module.exports = merge(config, {
       {
         from: path.join(__dirname, "../src/assets"),
         to: "assets"
+      },
+      {
+        from: path.join(__dirname, "../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"),
+        to: "."
+      },
+      {
+        from: path.join(__dirname, "../node_modules/@webcomponents/webcomponentsjs/webcomponents-hi-ce.js"),
+        to: "."
+      },
+      {
+        from: path.join(__dirname, "../node_modules/@webcomponents/webcomponentsjs/webcomponents-hi-sd-ce.js"),
+        to: "."
+      },
+      {
+        from: path.join(__dirname, "../node_modules/@webcomponents/webcomponentsjs/webcomponents-hi.js"),
+        to: "."
+      },
+      {
+        from: path.join(__dirname, "../node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js"),
+        to: "."
+      },
+      {
+        from: path.join(__dirname, "../node_modules/@webcomponents/webcomponentsjs/webcomponents-sd-ce.js"),
+        to: "."
       }
     ]),
     // Avoid publishing files when compilation fails
